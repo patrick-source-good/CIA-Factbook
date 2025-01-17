@@ -210,26 +210,6 @@ else:
     print("\nNo countries meet all the criteria.")
             
   
-# if countries_over_population_threshold and countries_over_real_GDP_growth_2023_threshold and countries_over_credit_rating_threshold and countries_over_real_GDP_growth_2022_threshold:
-#     # Find common countries across all criteria
-#     common_countries = set(countries_over_population_threshold) & \
-#                        set(countries_over_real_GDP_growth_2023_threshold) & \
-#                        set(countries_over_credit_rating_threshold) & \
-#                        set(countries_over_real_GDP_growth_2022_threshold)
-#     # field_values = set(population) \
-#     #                set(real_2023_GDP) \
-#     #                set(real_2022_GDP) \
-#     #                set(credit_rating_rank)
-                   
-                       
-#     if common_countries:
-#         print(f"\nCountries with population over {population_threshold}, 2023 GDP growth > {real_GDP_growth_2023_threshold}%, "
-#               f"2022 GDP growth > {real_GDP_growth_2022_threshold}%, and Fitch credit rating > {credit_rating_threshold}:")
-#         for country in common_countries:
-#             print(country)
-#     else:
-#         print("\nNo countries meet all the criteria.")
-# else:
-#     print("\nNo countries meet all the criteria.")
+
 
 
