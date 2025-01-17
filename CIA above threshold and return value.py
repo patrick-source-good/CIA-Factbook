@@ -208,8 +208,9 @@ if common_countries:
         credit_rating_value = next(value for name, value in countries_over_credit_rating_threshold if name == country)
         credit_rating_rank = fitch_ratings_reverse.get(credit_rating_value, "Unknown")
         country_resources = next(value for name, value in countries_with_natural_resources if name == country)
+        resources_str = ", ".join(country_resources) # convert set to clean language
         print(f"{country}: Population = {population}, 2023 GDP Growth = {real_2023_GDP}%, 2022 GDP Growth = {real_2022_GDP}%, \
-              Fitch Credit rating = {credit_rating_rank} Natural Resources = {country_resources}")
+              Fitch Credit rating = {credit_rating_rank} Natural Resources = {resources_str}")
 else:
     print("\nNo countries meet all the criteria.")
             
