@@ -33,6 +33,9 @@ fitch_ratings = {
     "AAA": 17
 }
 
+# Reverse mapping: from numerical values to Fitch ratings
+fitch_ratings_reverse = {value: key for key, value in fitch_ratings.items()}
+
 def load_json(file_path):
     """Load JSON data from a file."""
     with open(file_path, 'r') as file:
@@ -196,18 +199,25 @@ if common_countries:
     print(f"\nCountries meeting all criteria (Population > {population_threshold}, "
           f"2023 GDP growth > {real_GDP_growth_2023_threshold}%, 2022 GDP growth > {real_GDP_growth_2022_threshold}%, "
           f" Fitch rating > {credit_rating_threshold}"
-          f"and Natural Resources > {enter_natural_resources}):")
+          f" and Natural Resources > {enter_natural_resources}):")
     for country in common_countries:
         # Extract field values for each country
         population = next(value for name, value in countries_over_population_threshold if name == country)
         real_2023_GDP = next(value for name, value in countries_over_real_GDP_growth_2023_threshold if name == country)
         real_2022_GDP = next(value for name, value in countries_over_real_GDP_growth_2022_threshold if name == country)
-        credit_rating_rank = next(value for name, value in countries_over_credit_rating_threshold if name == country)
+        credit_rating_value = next(value for name, value in countries_over_credit_rating_threshold if name == country)
+        credit_rating_rank = fitch_ratings_reverse.get(credit_rating_value, "Unknown")
         country_resources = next(value for name, value in countries_with_natural_resources if name == country)
         print(f"{country}: Population = {population}, 2023 GDP Growth = {real_2023_GDP}%, 2022 GDP Growth = {real_2022_GDP}%, \
               Fitch Credit rating = {credit_rating_rank} Natural Resources = {country_resources}")
 else:
     print("\nNo countries meet all the criteria.")
+            
+  
+
+
+
+
             
   
 
