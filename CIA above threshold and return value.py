@@ -33,7 +33,7 @@ fitch_ratings = {
     "AAA": 17
 }
 
-# Reverse mapping: from numerical values to Fitch ratings
+# Reverse mapping: from numerical values to Fitch ratings. this was put in place because I wanted to see the value of fitch in the print function
 fitch_ratings_reverse = {value: key for key, value in fitch_ratings.items()}
 
 def load_json(file_path):
