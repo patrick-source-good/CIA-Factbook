@@ -1,0 +1,39 @@
+import smtplib #use SMTP 
+import datetime #calculate days passed
+from email.mime.text import MIMEText 
+from email.mime.multipart import MIMEMultipart
+
+# Auburn's last win against Georgia (as of now)
+last_win_date = datetime.date(2017, 10, 14) #append the library to the front of the date to do calculation 
+
+# Calculate days since last win
+today = datetime.date.today()
+days_since_win = (today - last_win_date).days
+
+# Email Configuration
+sender_email = "your_email@gmail.com"  # Your email
+receiver_email = "recipients_email@gmail.com"  # Friend's email
+subject = "Days Since Auburn Beat Georgia in Football"
+body = f"Hey buddy,\n\nJust a friendly reminder that it's been {days_since_win} days since Auburn last beat Georgia in football. Hope you're doing well!\n\nGo Dawgs! 🏆🐶"
+
+# Email Setup
+msg = MIMEMultipart() #makes multi part email object
+msg["From"] = sender_email
+msg["To"] = receiver_email
+msg["Subject"] = subject
+msg.attach(MIMEText(body, "plain"))
+
+# Sending Email (Gmail SMTP Example)
+smtp_server = "smtp.gmail.com"
+smtp_port = 587
+email_password = "your_app_password"  # Use an app password for security
+
+try:
+    server = smtplib.SMTP(smtp_server, smtp_port)
+    server.starttls()
+    server.login(sender_email, email_password)
+    server.sendmail(sender_email, receiver_email, msg.as_string())
+    server.quit()
+    print(f"Email sent! Auburn hasn't beaten Georgia in {days_since_win} days.")
+except Exception as e:
+    print(f"Failed to send email: {e}")
