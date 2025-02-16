@@ -1,0 +1,53 @@
+# The purpose of this code is to automatically send an email everyday at 09:00 to those attending my sisters gradudation from college. 
+
+import smtplib
+import datetime
+import schedule
+import time
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+
+# Email Configuration
+SENDER_EMAIL = "your_email"
+EMAIL_PASSWORD = "insert_temp_password"  # Use an app password for security
+RECEIVER_EMAILS = ["recipients_emails"]
+SMTP_SERVER = "smtp.gmail.com"
+SMTP_PORT = 587
+
+# Graduation Date
+GRADUATION_DATE = datetime.date(2025, 5, 10)
+
+def send_email():
+    """Function to send the countdown email."""
+    today = datetime.date.today()
+    days_until_graduation = (GRADUATION_DATE - today).days
+
+    subject = "Days until Kileigh's Graduation"
+    body = f"Hi all,\n\nJust a friendly reminder that Kileigh graduates in {days_until_graduation} days. Hope you're doing well!\n\nGo Dawgs! 🏆🐶"
+
+    # Email Setup
+    msg = MIMEMultipart()
+    msg["From"] = SENDER_EMAIL
+    msg["To"] = ", ".join(RECEIVER_EMAILS)
+    msg["Subject"] = subject
+    msg.attach(MIMEText(body, "plain"))
+
+    try:
+        server = smtplib.SMTP(SMTP_SERVER, SMTP_PORT)
+        server.starttls()
+        server.login(SENDER_EMAIL, EMAIL_PASSWORD)
+        server.sendmail(SENDER_EMAIL, RECEIVER_EMAILS, msg.as_string())
+        server.quit()
+        print(f"Email sent! Kileigh graduates in {days_until_graduation} days.")
+    except Exception as e:
+        print(f"Failed to send email: {e}")
+
+# Schedule the function to run every day at 9 AM
+schedule.every().day.at("09:00").do(send_email)
+
+print("Scheduler started... Press Ctrl+C to stop.")
+
+# Keep script running
+while True:
+    schedule.run_pending()
+    time.sleep(60)  # Check every minute
